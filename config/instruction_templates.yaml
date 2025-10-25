@@ -1,0 +1,177 @@
+templates:
+  malware_analysis:
+    - instruction: "Analyze this malware hash and provide threat intelligence details."
+      input_template: "Hash: {hash_type}:{hash_value}"
+      output_template: "This hash is associated with {malware_name}, a {malware_type}. It has been observed in campaigns by {threat_actor}. Known behaviors: {behaviors}. MITRE ATT&CK techniques: {attack_techniques}."
+
+    - instruction: "Identify the malware family for this file hash."
+      input_template: "{hash_type}: {hash_value}"
+      output_template: "The hash corresponds to {malware_name} ({aliases}), classified as {malware_type}. First seen: {first_seen}. Associated threat groups: {threat_actors}."
+
+    - instruction: "What threat intelligence is available for this malware sample?"
+      input_template: "File hash: {hash_value}"
+      output_template: "Malware: {malware_name}\nType: {malware_type}\nThreat Actor: {threat_actor}\nCampaign: {campaign}\nCapabilities: {capabilities}\nC2 Infrastructure: {c2_servers}"
+
+  ioc_analysis:
+    - instruction: "Analyze this IP address for malicious activity."
+      input_template: "IP: {ip_address}"
+      output_template: "This IP address is {reputation}. Associated with: {associations}. Known malicious activities: {activities}. First reported: {first_seen}. Last seen: {last_seen}. Threat actor: {threat_actor}."
+
+    - instruction: "Provide threat intelligence for this domain."
+      input_template: "Domain: {domain}"
+      output_template: "Domain reputation: {reputation}. Used for: {purpose}. Associated campaigns: {campaigns}. Hosting malware families: {malware_families}. Nameservers: {nameservers}. First observed: {first_seen}."
+
+    - instruction: "Is this URL associated with any known threats?"
+      input_template: "{url}"
+      output_template: "URL Status: {status}. This URL {threat_description}. Malware distribution: {malware}. Phishing target: {phishing_target}. Detection rate: {detection_rate}. Added to blocklist: {blocklist_date}."
+
+    - instruction: "Check if this file hash is malicious."
+      input_template: "{hash_type}: {hash_value}"
+      output_template: "Detection: {is_malicious}. {detection_count}/{total_engines} security vendors flagged this as malicious. Common detection names: {detection_names}. File type: {file_type}. Signature: {signature}."
+
+  threat_actor:
+    - instruction: "Provide intelligence on this APT group."
+      input_template: "APT Group: {group_name}"
+      output_template: "{group_name} ({aliases}) is a {group_type} threat actor group attributed to {attribution}. Active since: {first_seen}. Target sectors: {targeted_sectors}. Target regions: {targeted_regions}. Known TTPs: {ttps}. Associated malware: {malware_families}."
+
+    - instruction: "What are the TTPs used by this threat actor?"
+      input_template: "Threat Actor: {actor_name}"
+      output_template: "{actor_name} employs the following tactics and techniques:\nInitial Access: {initial_access}\nExecution: {execution}\nPersistence: {persistence}\nPrivilege Escalation: {privilege_escalation}\nDefense Evasion: {defense_evasion}\nCredential Access: {credential_access}\nLateral Movement: {lateral_movement}\nExfiltration: {exfiltration}"
+
+    - instruction: "Which malware tools does this threat group use?"
+      input_template: "{group_name}"
+      output_template: "{group_name} is known to use the following malware and tools: {malware_list}. Their preferred implants include: {preferred_implants}. Custom tools: {custom_tools}. Public tools: {public_tools}."
+
+  attack_pattern:
+    - instruction: "Explain this MITRE ATT&CK technique."
+      input_template: "Technique ID: {technique_id}"
+      output_template: "{technique_id} - {technique_name}\nTactic: {tactic}\nDescription: {description}\nPlatforms: {platforms}\nData Sources: {data_sources}\nDetection: {detection_guidance}\nMitigation: {mitigation}"
+
+    - instruction: "What are the detection methods for this attack technique?"
+      input_template: "{technique_id}: {technique_name}"
+      output_template: "Detection strategies for {technique_name}:\n{detection_methods}\nRelevant log sources: {log_sources}\nIndicators to monitor: {indicators}\nSIEM rules: {siem_rules}"
+
+    - instruction: "Map this observed behavior to MITRE ATT&CK."
+      input_template: "Observed behavior: {behavior_description}"
+      output_template: "This behavior maps to MITRE ATT&CK technique {technique_id} ({technique_name}) under the {tactic} tactic. Sub-technique: {sub_technique}. Commonly used by: {threat_actors}."
+
+  campaign_analysis:
+    - instruction: "Describe this cyber attack campaign."
+      input_template: "Campaign: {campaign_name}"
+      output_template: "{campaign_name} is a cyber operation {campaign_description}. Attribution: {threat_actor}. Time period: {start_date} to {end_date}. Targeted sectors: {sectors}. Targeted countries: {countries}. Attack vectors: {attack_vectors}. Malware used: {malware}. Objectives: {objectives}."
+
+    - instruction: "What IOCs are associated with this campaign?"
+      input_template: "{campaign_name}"
+      output_template: "IOCs for {campaign_name}:\nC2 Servers: {c2_ips}\nDomains: {domains}\nFile hashes: {file_hashes}\nEmail indicators: {email_indicators}\nRegistry keys: {registry_keys}\nMutex names: {mutex_names}"
+
+    - instruction: "Timeline of this attack campaign"
+      input_template: "Campaign: {campaign_name}"
+      output_template: "{campaign_name} Timeline:\n{timeline_events}\nKey milestones: {milestones}\nEvolution: {evolution_description}"
+
+  vulnerability:
+    - instruction: "Provide details on this CVE."
+      input_template: "CVE-{cve_id}"
+      output_template: "CVE-{cve_id}\nSeverity: {severity} (CVSS: {cvss_score})\nDescription: {description}\nAffected products: {affected_products}\nExploit available: {exploit_status}\nExploited in the wild: {wild_exploitation}\nMitigation: {mitigation}\nPatch: {patch_info}"
+
+    - instruction: "Is this vulnerability being exploited by threat actors?"
+      input_template: "{cve_id}"
+      output_template: "{cve_id} exploitation status: {exploitation_status}. Threat actors exploiting this: {threat_actors}. Campaigns: {campaigns}. Exploit maturity: {exploit_maturity}. First exploited: {first_exploitation_date}."
+
+  relationship_analysis:
+    - instruction: "What is the relationship between these threat entities?"
+      input_template: "Entity 1: {entity1}\nEntity 2: {entity2}"
+      output_template: "{entity1} and {entity2} are related through: {relationship_type}. Details: {relationship_description}. Supporting evidence: {evidence}. Confidence: {confidence_level}."
+
+    - instruction: "Show the attack infrastructure for this threat actor."
+      input_template: "Threat Actor: {actor_name}"
+      output_template: "{actor_name} infrastructure:\nC2 Servers: {c2_infrastructure}\nDomains: {domain_infrastructure}\nHosting providers: {hosting_providers}\nInfrastructure TTPs: {infrastructure_ttps}\nOverlap with other actors: {overlaps}"
+
+  kill_chain:
+    - instruction: "Map this attack to the cyber kill chain."
+      input_template: "{attack_description}"
+      output_template: "Cyber Kill Chain Mapping:\n1. Reconnaissance: {reconnaissance}\n2. Weaponization: {weaponization}\n3. Delivery: {delivery}\n4. Exploitation: {exploitation}\n5. Installation: {installation}\n6. Command & Control: {c2}\n7. Actions on Objectives: {actions}"
+
+    - instruction: "What is the attack flow for this campaign?"
+      input_template: "Campaign: {campaign_name}"
+      output_template: "Attack flow for {campaign_name}:\nInitial compromise: {initial_access}\nPayload delivery: {payload_delivery}\nExecution method: {execution}\nPersistence mechanism: {persistence}\nLateral movement: {lateral_movement}\nData collection: {collection}\nExfiltration method: {exfiltration}"
+
+  indicator_enrichment:
+    - instruction: "Enrich this IOC with context."
+      input_template: "{ioc_type}: {ioc_value}"
+      output_template: "IOC: {ioc_value}\nType: {ioc_type}\nFirst seen: {first_seen}\nLast seen: {last_seen}\nSources: {sources}\nAssociated malware: {malware}\nThreat actors: {threat_actors}\nCampaigns: {campaigns}\nConfidence: {confidence}\nTags: {tags}"
+
+  comparative_analysis:
+    - instruction: "Compare these two threat actors."
+      input_template: "Actor 1: {actor1}\nActor 2: {actor2}"
+      output_template: "Comparison of {actor1} and {actor2}:\nShared TTPs: {shared_ttps}\nDifferent TTPs: {different_ttps}\nTarget overlap: {target_overlap}\nInfrastructure overlap: {infrastructure_overlap}\nMalware overlap: {malware_overlap}\nPossible connection: {connection_assessment}"
+
+  report_analysis:
+    - instruction: "Summarize this security research report."
+      input_template: "Report Title: {title}\nSource: {source_name}\nPublished: {published_date}"
+      output_template: "Summary of '{title}' by {source_name}:\n{description}\n\nKey Findings:\n- Threat Actors: {threat_actors}\n- Malware Families: {malware_families}\n- Attack Techniques: {attack_techniques}\n- Targeted Sectors: {targeted_sectors}\n- IOCs: {iocs_summary}\n\nRelevant Tags: {tags}"
+
+    - instruction: "Extract threat intelligence from this research report."
+      input_template: "Title: {title}\nPublished by {author} on {published_date}\nDescription: {description}"
+      output_template: "Threat Intelligence Extraction:\nReport: {title}\nAuthor: {author}\nDate: {published_date}\n\nThreat Overview: {threat_overview}\nMalware Analysis: {malware_analysis}\nTTPs Observed: {ttps}\nIOCs Identified: {iocs}\nRecommendations: {recommendations}\nSource Credibility: {confidence}"
+
+    - instruction: "What are the main takeaways from this security report?"
+      input_template: "{title} - {source_name}"
+      output_template: "Main Takeaways from '{title}':\n\n1. Executive Summary: {executive_summary}\n2. Threat Actor Attribution: {attribution}\n3. Attack Vector: {attack_vector}\n4. Impact Assessment: {impact}\n5. Mitigation Strategies: {mitigation}\n6. Detection Methods: {detection}\n\nConfidence Level: {confidence}"
+
+    - instruction: "Analyze the threat landscape described in this report."
+      input_template: "Report: {title}\nTags: {tags}\nDescription: {description}"
+      output_template: "Threat Landscape Analysis for '{title}':\n\nEmerging Threats: {emerging_threats}\nThreat Actor Activity: {actor_activity}\nVulnerability Trends: {vulnerability_trends}\nIndustry Impact: {industry_impact}\nGeographic Focus: {geographic_focus}\n\nSource: {source_name}\nPublished: {published_date}"
+
+  blog_analysis:
+    - instruction: "Summarize this cybersecurity blog post."
+      input_template: "Title: {title}\nAuthor: {author}\nSource: {source_name}"
+      output_template: "Summary of '{title}' by {author}:\n{description}\n\nKey Points:\n- Main Topic: {main_topic}\n- Security Issues: {security_issues}\n- Recommendations: {recommendations}\n- Related Threats: {threats}\n\nTags: {tags}\nPublished: {published_date}"
+
+    - instruction: "Extract actionable intelligence from this blog article."
+      input_template: "{title}\n{description}"
+      output_template: "Actionable Intelligence:\n\nArticle: {title}\nSource: {source_name}\nAuthor: {author}\n\nThreat Description: {threat_description}\nAffected Systems: {affected_systems}\nIOCs to Monitor: {iocs}\nDetection Signatures: {signatures}\nRemediation Steps: {remediation}\n\nPublished: {published_date}"
+
+    - instruction: "What security insights does this blog provide?"
+      input_template: "Blog: {title} from {source_name}\nPublished: {published_date}"
+      output_template: "Security Insights from '{title}':\n\nOverview: {description}\n\nInsights:\n1. Threat Landscape: {threat_landscape}\n2. Attack Techniques: {techniques}\n3. Vulnerability Analysis: {vulnerabilities}\n4. Best Practices: {best_practices}\n5. Industry Trends: {trends}\n\nRelevance: {relevance}\nTags: {tags}"
+
+    - instruction: "Identify IOCs mentioned in this security blog."
+      input_template: "Article: {title}\nContent: {description}\nTags: {tags}"
+      output_template: "IOCs Identified in '{title}':\n\nIP Addresses: {ip_addresses}\nDomains: {domains}\nFile Hashes: {file_hashes}\nURLs: {urls}\nEmail Indicators: {email_indicators}\n\nContext: {ioc_context}\nThreat Level: {threat_level}\nSource: {source_name}\nAuthor: {author}"
+
+metadata_fields:
+  required:
+    - source
+    - category
+    - timestamp
+    - confidence
+  optional:
+    - tags
+    - mitre_attack_ids
+    - threat_actor
+    - malware_family
+    - campaign
+    - sector
+    - region
+    - first_seen
+    - last_seen
+
+confidence_levels:
+  high: 0.8-1.0
+  medium: 0.5-0.79
+  low: 0.3-0.49
+  unknown: 0.0-0.29
+
+categories:
+  - malware-analysis
+  - ioc-intelligence
+  - threat-actor-profiling
+  - attack-pattern-recognition
+  - vulnerability-intelligence
+  - campaign-analysis
+  - relationship-analysis
+  - kill-chain-mapping
+  - indicator-enrichment
+  - comparative-analysis
+  - report-analysis
+  - blog-analysis

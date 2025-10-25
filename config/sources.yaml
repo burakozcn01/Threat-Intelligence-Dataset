@@ -1,0 +1,370 @@
+sources:
+  mitre_attack:
+    name: "MITRE ATT&CK"
+    type: "taxii"
+    enabled: true
+    priority: 1
+    config:
+      server: "cti-taxii.mitre.org"
+      api_root: "https://cti-taxii.mitre.org/taxii/"
+      collections:
+        - "enterprise-attack"
+        - "mobile-attack"
+        - "ics-attack"
+      version: "2.1"
+    rate_limit:
+      requests_per_minute: 60
+    estimated_records: 20000
+    categories:
+      - "attack-patterns"
+      - "malware"
+      - "threat-actors"
+      - "campaigns"
+
+  alienvault_otx:
+    name: "AlienVault OTX"
+    type: "api"
+    enabled: true
+    priority: 2
+    config:
+      base_url: "https://otx.alienvault.com/api/v1"
+      endpoints:
+        pulses: "/pulses/subscribed"
+        indicators: "/indicators"
+        search: "/search/pulses"
+      auth_required: true
+      auth_type: "api_key"
+    rate_limit:
+      requests_per_minute: 100
+    estimated_records: 40000
+    categories:
+      - "iocs"
+      - "pulses"
+      - "malware"
+
+  misp_feeds:
+    name: "MISP OSINT Feeds"
+    type: "misp"
+    enabled: true
+    priority: 3
+    config:
+      feeds:
+        - name: "CIRCL OSINT"
+          url: "https://www.circl.lu/doc/misp/feed-osint"
+          format: "misp"
+        - name: "Botvrij.eu"
+          url: "https://www.botvrij.eu/data/feed-osint"
+          format: "misp"
+      auth_required: false
+    rate_limit:
+      requests_per_minute: 30
+    estimated_records: 25000
+    categories:
+      - "iocs"
+      - "network-indicators"
+
+  abuse_ch:
+    name: "Abuse.ch Feeds"
+    type: "csv_json"
+    enabled: true
+    priority: 4
+    config:
+      feeds:
+        urlhaus:
+          url: "https://urlhaus.abuse.ch/downloads/json/"
+          format: "json"
+          type: "malware-urls"
+        malwarebazaar:
+          url: "https://bazaar.abuse.ch/export/json/recent/"
+          format: "json"
+          type: "malware-samples"
+        feodo:
+          url: "https://feodotracker.abuse.ch/downloads/ipblocklist.json"
+          format: "json"
+          type: "botnet-c2"
+        threatfox:
+          url: "https://threatfox.abuse.ch/export/json/recent/"
+          format: "json"
+          type: "iocs"
+    rate_limit:
+      requests_per_minute: 20
+    estimated_records: 10000
+    categories:
+      - "malware"
+      - "iocs"
+      - "c2-infrastructure"
+
+  github_cti:
+    name: "GitHub CTI Repositories"
+    type: "git"
+    enabled: true
+    priority: 5
+    config:
+      repositories:
+        - url: "https://github.com/mitre/cti"
+          branch: "master"
+          paths:
+            - "enterprise-attack"
+            - "mobile-attack"
+            - "ics-attack"
+        - url: "https://github.com/CyberMonitor/APT_CyberCriminal_Campagin_Collections"
+          branch: "master"
+          paths:
+            - "."
+      clone_depth: 1
+    estimated_records: 20000
+    categories:
+      - "apt-reports"
+      - "campaigns"
+      - "stix-data"
+
+  ransomware_live:
+    name: "Ransomware.live"
+    type: "api"
+    enabled: true
+    priority: 6
+    config:
+      base_url: "https://api.ransomware.live/v2"
+      endpoints:
+        victims: "/victims"
+        groups: "/groups"
+        recent: "/recentvictims"
+      auth_required: false
+    rate_limit:
+      requests_per_minute: 30
+    estimated_records: 5000
+    categories:
+      - "ransomware"
+      - "campaigns"
+      - "threat-actors"
+
+  phishing_feeds:
+    name: "Phishing Feeds"
+    type: "feeds"
+    enabled: true
+    priority: 7
+    config:
+      feeds:
+        openphish:
+          url: "https://openphish.com/feed.txt"
+          format: "txt"
+        phishtank:
+          url: "http://data.phishtank.com/data/online-valid.csv"
+          format: "csv"
+        phishing_army:
+          url: "https://phishing.army/download/phishing_army_blocklist.txt"
+          format: "txt"
+      auth_required: false
+    rate_limit:
+      requests_per_minute: 20
+    estimated_records: 15000
+    categories:
+      - "phishing"
+      - "iocs"
+      - "malicious-urls"
+
+  cisa_kev:
+    name: "CISA Known Exploited Vulnerabilities"
+    type: "json"
+    enabled: true
+    priority: 8
+    config:
+      url: "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
+      auth_required: false
+    rate_limit:
+      requests_per_minute: 10
+    estimated_records: 1000
+    categories:
+      - "vulnerabilities"
+      - "exploits"
+      - "cve"
+
+  dshield:
+    name: "DShield SANS ISC"
+    type: "api"
+    enabled: true
+    priority: 9
+    config:
+      base_url: "https://isc.sans.edu"
+      endpoints:
+        ssh_usernames: "/sshallusernames.json"
+        top_ips: "/api/topips/records/100"
+      auth_required: false
+    rate_limit:
+      requests_per_minute: 20
+    estimated_records: 2000
+    categories:
+      - "iocs"
+      - "attack-patterns"
+      - "threat-intelligence"
+
+  github_iocs:
+    name: "GitHub IOC Repositories"
+    type: "github"
+    enabled: true
+    priority: 10
+    config:
+      repos:
+        eset: "https://api.github.com/repos/eset/malware-ioc/contents"
+        apt_campaigns: "https://github.com/CyberMonitor/APT_CyberCriminal_Campagin_Collections"
+      auth_required: false
+    rate_limit:
+      requests_per_minute: 10
+    estimated_records: 3000
+    categories:
+      - "iocs"
+      - "apt"
+      - "malware"
+
+  virustotal:
+    name: "VirusTotal"
+    type: "api"
+    enabled: false
+    priority: 11
+    config:
+      base_url: "https://www.virustotal.com/api/v3"
+      endpoints:
+        file_report: "/files/{id}"
+        domain_report: "/domains/{id}"
+        ip_report: "/ip_addresses/{id}"
+      auth_required: true
+      auth_type: "api_key"
+      quota_limit: 500
+    rate_limit:
+      requests_per_minute: 4
+    estimated_records: 5000
+    categories:
+      - "malware-analysis"
+      - "file-reputation"
+
+  security_reports:
+    name: "Security Research Reports"
+    type: "rss"
+    enabled: true
+    priority: 12
+    config:
+      sources:
+        kaspersky:
+          name: "Kaspersky SecureList"
+          url: "https://securelist.com/feed/"
+        checkpoint:
+          name: "Check Point Research"
+          url: "https://research.checkpoint.com/feed/"
+        crowdstrike:
+          name: "CrowdStrike Threat Intel"
+          url: "https://www.crowdstrike.com/blog/category/threat-intel-research/feed/"
+        microsoft:
+          name: "Microsoft Security"
+          url: "https://www.microsoft.com/security/blog/feed/"
+        paloalto_unit42:
+          name: "Palo Alto Unit 42"
+          url: "https://researchcenter.paloaltonetworks.com/unit42/feed/"
+        talos:
+          name: "Cisco Talos Intelligence"
+          url: "https://feeds.feedburner.com/feedburner/Talos"
+        sentinelone:
+          name: "SentinelOne Labs"
+          url: "https://www.sentinelone.com/labs/feed/"
+        eset:
+          name: "ESET WeLiveSecurity"
+          url: "https://www.welivesecurity.com/en/rss/feed/"
+        dfir_report:
+          name: "The DFIR Report"
+          url: "https://thedfirreport.com/feed/"
+        malwarebytes:
+          name: "Malwarebytes Labs"
+          url: "https://www.malwarebytes.com/blog/feed"
+      auth_required: false
+    rate_limit:
+      requests_per_minute: 20
+    estimated_records: 500
+    categories:
+      - "threat-research"
+      - "apt-analysis"
+      - "malware-analysis"
+      - "vulnerability-research"
+
+  security_blogs:
+    name: "Security Blogs"
+    type: "rss"
+    enabled: true
+    priority: 13
+    config:
+      sources:
+        krebs:
+          name: "Krebs on Security"
+          url: "https://krebsonsecurity.com/feed/"
+        bleepingcomputer:
+          name: "BleepingComputer"
+          url: "https://www.bleepingcomputer.com/feed/"
+        darkreading:
+          name: "Dark Reading"
+          url: "https://www.darkreading.com/rss.xml"
+        securityaffairs:
+          name: "Security Affairs"
+          url: "https://securityaffairs.com/wordpress/feed"
+        threatpost:
+          name: "Threatpost"
+          url: "https://threatpost.com/feed/"
+        schneier:
+          name: "Schneier on Security"
+          url: "https://www.schneier.com/blog/atom.xml"
+        troyhunt:
+          name: "Troy Hunt"
+          url: "https://www.troyhunt.com/rss/"
+        grahamcluley:
+          name: "Graham Cluley"
+          url: "https://www.grahamcluley.com/feed/"
+        hackread:
+          name: "HackRead"
+          url: "https://www.hackread.com/feed/"
+        infosecurity:
+          name: "Infosecurity Magazine"
+          url: "http://www.infosecurity-magazine.com/rss/news/"
+        sans_isc:
+          name: "SANS Internet Storm Center"
+          url: "https://isc.sans.edu/rssfeed_full.xml"
+        nakedsecurity:
+          name: "Sophos Naked Security"
+          url: "https://nakedsecurity.sophos.com/feed/"
+        wired_security:
+          name: "WIRED Security"
+          url: "https://www.wired.com/feed/category/security/latest/rss"
+        zdnet_security:
+          name: "ZDNet Security"
+          url: "https://www.zdnet.com/topic/security/rss.xml"
+        arstechnica:
+          name: "Ars Technica Security"
+          url: "https://arstechnica.com/tag/security/feed/"
+      auth_required: false
+    rate_limit:
+      requests_per_minute: 20
+    estimated_records: 750
+    categories:
+      - "security-news"
+      - "threat-intelligence"
+      - "breach-analysis"
+      - "cyber-crime"
+
+collection_settings:
+  batch_size: 100
+  concurrent_workers: 5
+  retry_attempts: 3
+  retry_delay: 5
+  timeout: 30
+  user_agent: "CTI-Dataset-Collector/1.0"
+
+storage:
+  raw_data_dir: "./data/raw"
+  processed_data_dir: "./data/processed"
+  cache_dir: "./data/cache"
+  database: "./data/cti_dataset.db"
+
+quality_control:
+  min_confidence: 0.6
+  deduplication_threshold: 0.95
+  required_fields:
+    - "type"
+    - "source"
+    - "timestamp"
+  max_age_days: 730  # 2 years
