@@ -48,7 +48,7 @@ Bu komut:
 1. 12 kaynaktan veri toplar
 2. Verileri normalize eder ve deduplicate eder
 3. Instruction-tuning formatına dönüştürür
-4. 300K hedef ile dataset oluşturur
+4. 150K hedef ile dataset oluşturur
 5. `./output/final/` klasörüne kaydeder
 
 ## Çıktı Formatı
