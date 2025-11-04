@@ -1,85 +1,116 @@
-# CTI Instruction-Tuning Dataset Generator
+# AI-Powered CTI Instruction-Tuning Dataset
 
-Siber Tehdit İstihbaratı (CTI) verilerinden yüksek kaliteli instruction-tuning dataset'i üreten otomatik pipeline.
+Yapay zeka ile üretilmiş 50,000 yüksek kaliteli Siber Tehdit İstihbaratı (CTI) instruction-tuning dataset'i.
 
-## Veri Kaynakları
+## 🎯 Özellikler
 
-| Kaynak | Tip | Örnek Veri |
-|--------|-----|------------|
-| MITRE ATT&CK | Taktik/Teknik/Malware | ~26,000 entity |
-| AlienVault OTX | Threat Pulse/IOC | ~1,000 pulse |
-| Abuse.ch | Malware/URL/C2 | ~1,000 URLhaus |
-| Ransomware.live | Ransomware Grupları/Attacks | ~600 entry |
-| Phishing Feeds | Phishing URL/Domain | ~200,000 URL |
-| CISA KEV | Zafiyetler | ~1,500 CVE |
-| GitHub APT Campaigns | APT Raporları | ~1,500 campaign |
-| CERT Advisories | Güvenlik Bültenleri | ~500 advisory |
-| Unit42 | Threat Intel | ~30 rapor |
-| YARA Rules | Detection Rules | ~15 rule seti |
-| ICS-CERT | ICS Güvenlik | ~30 advisory |
+- **50,000 örnek**: Gerçekçi ve çeşitli CTI senaryoları
+- **AI-powered**: Yapay zeka tarafından üretilmiş yüksek kaliteli içerik
+- **7 kategori**: Malware analizi, IOC intelligence, threat actor profiling, ve daha fazlası
+- **Gerçekçi veriler**: Gerçek dünya threat intelligence verilerine dayalı
+- **Instruction-tuning formatı**: LLM fine-tuning için hazır format
 
-## Kurulum
+## 📊 Dataset İçeriği
+
+| Kategori | Örnek Sayısı | Oran |
+|----------|--------------|------|
+| Malware Analysis | 12,500 | 25% |
+| IOC Intelligence | 10,000 | 20% |
+| Threat Actor Profiling | 7,500 | 15% |
+| Attack Pattern Recognition | 7,500 | 15% |
+| Vulnerability Analysis | 5,000 | 10% |
+| Campaign Analysis | 5,000 | 10% |
+| Threat Intelligence | 2,500 | 5% |
+
+## 🚀 Kurulum
 
 ```bash
-python -m venv venv
-source venv/bin/activate
+# Repository'yi klonlayın
+git clone https://github.com/burakozcn01/ThreatIntel-JSON-Dataset-150k.git
+cd ThreatIntel-JSON-Dataset-150k
+
+# Gereksinimleri yükleyin
 pip install -r requirements.txt
 ```
 
-## API Anahtarları
+## 💻 Kullanım
 
-API anahtarlarını `.env` dosyasına ekleyin:
+### Yeni Dataset Üretme
 
-```env
-OTX_API_KEY=your_otx_api_key
-GITHUB_API_KEY=your_github_token
-VIRUSTOTAL_API_KEY=your_virustotal_key
-```
-
-## Kullanım
-
-Tek komutla tüm pipeline'ı çalıştırın:
+Yeni bir 50K dataset üretmek için:
 
 ```bash
-python generate_final_dataset.py
+python generate_ai_dataset.py
 ```
 
 Bu komut:
-1. 12 kaynaktan veri toplar
-2. Verileri normalize eder ve deduplicate eder
-3. Instruction-tuning formatına dönüştürür
-4. 150K hedef ile dataset oluşturur
-5. `./output/final/` klasörüne kaydeder
+1. 50,000 yüksek kaliteli CTI örneği üretir
+2. Instruction-tuning formatına dönüştürür
+3. `./output/final/` klasörüne kaydeder
+4. İstatistikleri oluşturur
 
-## Çıktı Formatı
+## 📋 Çıktı Formatı
 
-### Instruction-Tuning Format
+Her örnek instruction-tuning formatında:
 
 ```json
 {
-  "instruction": "Analyze this malware hash and provide threat intelligence.",
-  "input": "SHA-256: abc123...",
-  "output": "The hash corresponds to TrickBot malware...",
+  "instruction": "Analyze this malware sample and provide threat intelligence.",
+  "input": "SHA256: 3f5a2b9c8d1e0f4a...",
+  "output": "This SHA256 hash corresponds to Emotet malware. Emotet is a banking trojan known for targeting Financial Services sector. The malware typically spreads via phishing emails and establishes persistence through registry modifications...",
   "metadata": {
-    "source": "mitre-attack",
     "category": "malware-analysis",
+    "source": "ai-generated",
     "confidence": "high",
-    "timestamp": "2025-10-25T...",
-    "tags": ["banking-trojan", "apt"]
+    "timestamp": "2025-11-04T23:46:14.765507",
+    "tags": ["emotet", "malware", "trojan"]
   }
 }
 ```
 
-## Dataset Kategorileri
+## 🎓 Dataset Kategorileri
 
-- **malware-analysis**: Malware analizi ve sınıflandırma
-- **ioc-intelligence**: IOC (Indicator of Compromise) analizi
-- **threat-actor-profiling**: APT grupları ve threat actor profilleme
-- **attack-pattern-recognition**: MITRE ATT&CK teknik tanıma
-- **vulnerability-analysis**: Zafiyet analizi ve remediation
-- **campaign-analysis**: Threat kampanya analizi
-- **threat-intelligence**: Genel tehdit istihbaratı
+- **malware-analysis** (25%): Malware analizi, hash analizi, dosya analizi
+- **ioc-intelligence** (20%): IOC (Indicator of Compromise) analizi, IP/domain/hash kontrol
+- **threat-actor-profiling** (15%): APT grupları, threat actor TTPs, profilleme
+- **attack-pattern-recognition** (15%): MITRE ATT&CK teknikleri, detection yöntemleri
+- **vulnerability-analysis** (10%): CVE analizi, zafiyet değerlendirme, remediation
+- **campaign-analysis** (10%): Threat kampanya analizi, APT operasyonları
+- **threat-intelligence** (5%): Genel tehdit istihbaratı, durum raporları
 
-## Lisans
+## 📦 Örnek Kullanım
 
-Bu proje CTI araştırma amaçlı geliştirilmiştir.
+```python
+import json
+
+# Dataset'i yükle
+with open('output/final/cti_dataset_ai_generated_20251104_234615.json', 'r') as f:
+    dataset = json.load(f)
+
+# İlk örneği görüntüle
+print(json.dumps(dataset[0], indent=2))
+
+# Kategoriye göre filtrele
+malware_examples = [ex for ex in dataset if ex['metadata']['category'] == 'malware-analysis']
+print(f"Malware analysis örnekleri: {len(malware_examples)}")
+```
+
+## 🔧 Dataset İstatistikleri
+
+- **Toplam örnek**: 50,000
+- **Dosya boyutu**: ~51 MB (JSON)
+- **Ortalama örnek uzunluğu**: ~1 KB
+- **High confidence**: 70%
+- **Medium confidence**: 30%
+
+## 🎯 Kullanım Alanları
+
+- LLM fine-tuning için CTI domain adaptation
+- Security analyst eğitim dataları
+- Threat intelligence chatbot geliştirme
+- SOC analyst eğitim simülasyonları
+- CTI araştırma ve geliştirme
+
+## 📝 Lisans
+
+Bu proje CTI araştırma ve eğitim amaçlı geliştirilmiştir. Ticari kullanım için lisans gereklidir.

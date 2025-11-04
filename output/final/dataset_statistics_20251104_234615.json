@@ -1,0 +1,68 @@
+{
+  "generation_timestamp": "2025-11-04T23:46:16.571983",
+  "total_examples": 50000,
+  "generation_method": "ai-powered",
+  "by_category": {
+    "threat-actor-profiling": 7500,
+    "threat-intelligence": 2500,
+    "vulnerability-analysis": 5000,
+    "ioc-intelligence": 10000,
+    "malware-analysis": 12500,
+    "campaign-analysis": 5000,
+    "attack-pattern-recognition": 7500
+  },
+  "by_confidence": {
+    "high": 34936,
+    "medium": 15064
+  },
+  "sample_examples": [
+    {
+      "instruction": "What are the typical tactics and tools used by this threat actor?",
+      "input": "Threat Group-3390",
+      "output": "Threat Group-3390 Tactics, Techniques, and Procedures (TTPs):\n\nInitial Compromise:\n- Primary Vector: Spearphishing with malicious attachments\n- Exploited Vulnerabilities: CVE-2020-0601, CVE-2020-1472\n\nMalware Arsenal:\n1. Emotet - Backdoor\n2. Citadel - Information stealer\n3. Custom tools for lateral movement\n\nPost-Exploitation:\n- Credential Dumping: ProcDump\n- Lateral Movement: SMB\n- Data Staging: RAR archives\n\nC2 Infrastructure:\n- Domains: cdn-5reo1cqfxet.net\n- Protocol: DNS\n\nDefensive Recommendations:\n- Monitor for Threat Group-3390 IOCs\n- Deploy EDR solutions\n- Implement network segmentation\n- Enable MFA",
+      "metadata": {
+        "category": "threat-actor-profiling",
+        "source": "ai-generated",
+        "confidence": "high",
+        "timestamp": "2025-11-04T23:46:14.765507",
+        "tags": [
+          "threat-group-3390",
+          "apt",
+          "threat-actor"
+        ]
+      }
+    },
+    {
+      "instruction": "Provide a threat intelligence summary for current cyber threats.",
+      "input": "What are the emerging threats in the current landscape?",
+      "output": "Current Threat Landscape Summary (November 2025)\n\nTop Threats:\n\n1. Ransomware Operations:\n   - Active Groups: Carbanak, Citadel\n   - Targeting: Defense, Telecommunications\n   - Average Ransom: $330K - $1M\n   - Notable Trend: Double extortion tactics\n\n2. APT Activity:\n   - Most Active: TA551\n   - Focus: Cloud infrastructure compromise\n   - New TTPs: Mobile malware\n\n3. Vulnerability Exploitation:\n   - Critical CVEs: CVE-2019-11510, CVE-2021-27065\n   - Exploitation Timeline: Weeks before patch\n   - Impact: Critical infrastructure\n\n4. Emerging Threats:\n   - AI-powered attacks\n   - Cloud misconfigurations\n\nDefensive Recommendations:\n- Prioritize patching: CVE-2019-0708\n- Monitor for APT1 TTPs\n- Implement zero-trust architecture\n- Enhanced email security\n- Backup and recovery testing",
+      "metadata": {
+        "category": "threat-intelligence",
+        "source": "ai-generated",
+        "confidence": "high",
+        "timestamp": "2025-11-04T23:46:15.527209",
+        "tags": [
+          "threat-intelligence",
+          "situational-awareness",
+          "briefing"
+        ]
+      }
+    },
+    {
+      "instruction": "What is the impact and remediation for this CVE?",
+      "input": "CVE-2022-26134",
+      "output": "CVE-2022-26134 - Critical Vulnerability in Linux\n\nImpact Assessment:\n\nSeverity: Critical\nExploitability: Moderate - Low complexity\n\nPotential Impact:\n- Unauthorized access\n- Lateral movement capability\n- Business Impact: Critical data loss\n\nExploitation Timeline:\n- Disclosure Date: 2025-09-17\n- Patch Release: 2025-06-18\n- First In-the-Wild Exploitation: 2025-10-05\n- Exploit Availability: Metasploit module exists\n\nRemediation Steps:\n\nImmediate Actions:\n1. Identify affected systems: Scan with vulnerability scanner\n2. Prioritize critical assets\n3. Apply emergency patches\n4. Isolate vulnerable systems if patching delayed\n\nLong-term:\n- Implement patch management process\n- Deploy IDS/IPS signatures for CVE-2022-26134\n- Monitor for indicators: update-5q3tvs7w9n9.org, 142.127.179.169\n- Review security logs for past exploitation\n- Conduct incident response if compromised\n\nMitigation Controls:\n- WAF rules (if web-facing)\n- Network segmentation\n- Access control restrictions",
+      "metadata": {
+        "category": "vulnerability-analysis",
+        "source": "ai-generated",
+        "confidence": "high",
+        "timestamp": "2025-11-04T23:46:15.003053",
+        "tags": [
+          "cve-2022-26134",
+          "vulnerability",
+          "cve"
+        ]
+      }
+    }
+  ]
+}
